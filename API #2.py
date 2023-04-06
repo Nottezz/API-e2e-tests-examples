@@ -1,7 +1,7 @@
 import requests
 
 class Categories_joke():
-    """Отображение шуток по всем категороиям"""
+    """Вывод шуток после выбора категории пользователем"""
 
     def __init__(self):
         pass
@@ -15,17 +15,18 @@ class Categories_joke():
         request.encoding = 'utf-8'
 
         print(request.text + '\n')  # Показывает весь список категорий
-        categories = input('Выберите категорию: ')
+        categories = input('Выберите категорию: ') # Просит выбрать категорию шутки
         categories_disc = request.json()
 
+        """Цикл, который при выборе категории показывает шутку"""
         for result in categories_disc:
-            if categories.lower() == result:
+            if categories.lower() == result:            # Цикл принимает любого регистра значения и переводит в нижный
                 url = f'https://api.chucknorris.io/jokes/random?category={result}'
                 print(url)
                 request = requests.get(url)
                 joke_categories = request.json()
                 joke_result = joke_categories.get('value')
-                print(joke_result)
+                print(f'Шутка из категории {result}.\n' + joke_result)
                 break
         else:
             print('Вы выброали неправильную категорию')
