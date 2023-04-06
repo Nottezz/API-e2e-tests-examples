@@ -8,23 +8,27 @@ class Categories_joke():
 
     def categories_joke(self):
         url = 'https://api.chucknorris.io/jokes/categories'
-        print(url)
+
         request = requests.get(url)
         print('Стасус код ' + str(request.status_code))
         assert 200 == request.status_code
         request.encoding = 'utf-8'
+
         print(request.text + '\n')  # Показывает весь список категорий
-        categories = request.json()
+        categories = input('Выберите категорию: ')
+        categories_disc = request.json()
 
-        """Основной цикл, который при запуске будет показывать шутки по категориям"""
-        for result in categories:
-            url = f'https://api.chucknorris.io/jokes/random?category={result}'
-            request = requests.get(url)
-            joke_categories = request.json()
-            joke_result = joke_categories.get('value')
-            print(f'\nШутка из категории {result}\n'+ joke_result)
-
-
+        for result in categories_disc:
+            if categories.lower() == result:
+                url = f'https://api.chucknorris.io/jokes/random?category={result}'
+                print(url)
+                request = requests.get(url)
+                joke_categories = request.json()
+                joke_result = joke_categories.get('value')
+                print(joke_result)
+                break
+        else:
+            print('Вы выброали неправильную категорию')
 
 
 joke = Categories_joke()
