@@ -108,6 +108,19 @@ class New_location():
         assert status == "OK"
         print('Локация удалена')
 
+        """Проверка удаления локации"""
+
+        result_get = requests.get(get_url)
+        print(result_get.text)
+        print(f'Статус код - {result_get.status_code}')
+        assert 404 == result_get.status_code
+        print('Успешно! Проверка пройдена')
+        check_msg = result_get.json()
+        msg_info = check_msg.get('msg')
+        print(msg_info)
+        assert msg_info == "Get operation failed, looks like place_id  doesn't exists"
+        print('Адреса не существует')
+
 
 
 place = New_location()
