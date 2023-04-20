@@ -2,16 +2,15 @@ from project.utils.http_methods import Http_methods
 
 """Методы для тестирования Google maps API"""
 
-base_url = 'https://rahulshettyacademy.com' # Базовый URL
-key = "?key=qaclick123" # Параметр для всех запросов
+base_url = 'https://rahulshettyacademy.com'  # Базовый URL
+key = "?key=qaclick123"  # Параметр для всех запросов
+
 
 class Google_maps_api():
-
     """Метод для создания новой локации"""
 
     @staticmethod
     def create_new_place():
-
         json_for_create_new_location = {
             "location": {
                 "lat": -38.383494,
@@ -31,7 +30,7 @@ class Google_maps_api():
         post_resourece = '/maps/api/place/add/json'  # Ресурст метода POST
         post_url = base_url + post_resourece + key
         print(post_url)
-        result_post = Http_methods.post(post_url,json_for_create_new_location)
+        result_post = Http_methods.post(post_url, json_for_create_new_location)
         print(result_post.text)
         return result_post
 
@@ -39,9 +38,8 @@ class Google_maps_api():
 
     @staticmethod
     def get_new_place(place_id):
-
-        get_resourece = "/maps/api/place/get/json" # Ресурст метода GET
-        get_url = base_url + get_resourece + key + "&place_id=" + place_id
+        get_resource = "/maps/api/place/get/json"  # Ресурст метода GET
+        get_url = base_url + get_resource + key + "&place_id=" + place_id
         print(get_url)
         result_post = Http_methods.get(get_url)
         print(result_post.text)
@@ -51,7 +49,6 @@ class Google_maps_api():
 
     @staticmethod
     def put_new_place(place_id):
-
         put_resource = "/maps/api/place/update/json"
         put_url = base_url + put_resource + key
         print(put_url)
@@ -60,7 +57,7 @@ class Google_maps_api():
             "address": "100 Lenina street, RU",
             "key": "qaclick123"
         }
-        result_put = Http_methods.put(put_url,json_for_update_new_location)
+        result_put = Http_methods.put(put_url, json_for_update_new_location)
         print(result_put.text)
         return result_put
 

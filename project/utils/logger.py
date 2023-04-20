@@ -3,7 +3,7 @@ import os
 
 
 class Logger():
-    file_name = f'logs/log_' + str(datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")) + '.log'
+    file_name = fr'D:\Study\api\api_course\project\logs/log_' + str(datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")) + '.log'
 
     @classmethod
     def write_log_to_file(cls, data: str):
@@ -34,4 +34,3 @@ class Logger():
         data_to_add += f"\n-----\n"
 
         cls.write_log_to_file(data_to_add)
-
