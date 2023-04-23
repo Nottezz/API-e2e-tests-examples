@@ -40,61 +40,65 @@ class New_location():
             print(f'Статус код - {result_post.status_code}')
             assert 200 == result_post.status_code
             print('Статус код соответсвует!')
-            check_post = result_post.json()
-            place_id = check_post.get('place_id')
+            place_id = result_post.json().get('place_id')
             print('Place ID сформирован - ' + place_id)
-            with open('place_id.txt', mode='a') as file:  # Запись информации по place_id в файл
+            with open('place_id.txt', mode='w') as file:  # Запись информации по place_id в файл
                 file.write(place_id + "\n")
 
         print('\nPlace ID сохранены\n')
 
-        file = open('place_id.txt')
-        read_file = file.readlines()  # Чтение созданного файла списком
+        fr = open('place_id.txt', 'r')
+        place_id = fr.readlines()
+        fr.close()
+        print(place_id)
 
-        """Метод GET"""
-        print('МЕТОД GET\n')
-        for place_id_list in read_file:
-            get_resourece = "/maps/api/place/get/json"
-            get_url = base_url + get_resourece + key + "&place_id=" + place_id_list.rstrip('\n')
+        ""
+        get_resource = '/maps/api/place/get/json'
+
+        for places_id in place_id:
+            places_id = places_id.rstrip()
+            print(f'Place ID: {places_id}')
+            get_url = f'{base_url} + {get_resource} + {key} + &place_id= + {places_id}'
             print(get_url)
             result_get = requests.get(get_url)
             print(result_get.text)
-            print(f'Статус код - {result_get.status_code}')
-            assert 200 == result_get.status_code
-            print('Успешно! Проверка пройдена')
+            assert result_get.status_code == 200
+            print('Проверка локации успешна!')
 
-        """Метод DELETE"""
-        print('\nМЕТОД DELETE\n')
+        new_place_id = open('new_place_id.txt', 'w')
 
-        delete_place = [read_file[1], read_file[3]]  # Выбираем какие именно удаляем.
-        for delete_list in delete_place:
-            delete_resource = '/maps/api/place/delete/json'
-            delete_url = base_url + delete_resource + key
-            json_for_delete_new_location = {
-                "place_id": delete_list.rstrip('\n')  # Вставляется тот place id, который нужно удалить из списка.
-            }
-            result_delete = requests.delete(delete_url, json=json_for_delete_new_location)
-            check_delete = result_delete.json()
-            status = check_delete.get('status')
-            print('Place ID - ' + delete_list.rstrip('\n'))
-            print('Статус удаления локации -' + status)
+        ""
+        delete_rosource = '/maps/api/place/delete/json'
+        delete_url = base_url + delete_rosource + key
+        print(delete_url)
 
-        """Метод GET"""
-        print('\nМЕТОД GET\n')
-        for place_id_list in read_file:
+        for index in range(len(place_id)):
+            if index % 2 != 0:
+                places_id = place_id[index].rstrip()
+                print(place_id)
+                delete_json = {
+                    'place_id': places_id
+                }
+                result_delete = requests.delete(delete_url, json=delete_json)
+                print(result_delete.text)
+                assert result_delete == 200
+                print('Удаление прошло успешно')
+            else:
+                places_id = place_id[index].rstrip()
+                get_url = base_url + get_resource + key + "&place_id=" + places_id
+                print(get_url)
+                result_get = requests.get(get_url)
+                print(result_get.status_code)
 
-            get_resourece = "/maps/api/place/get/json"
-            get_url = base_url + get_resourece + key + "&place_id=" + place_id_list.rstrip('\n')
-            print(get_url)
-            result_get = requests.get(get_url)
-            print(f'Статус код - {result_get.status_code}')
-            if result_get.status_code == 200:   # Проверяем какие place id остались
-                with open('place_id_new.txt', mode='a') as file:    # И записываем их в файл
-                    file.write(place_id_list + "\n")
+                if result_get.status_code == 200:
+                    new_place_id.write(f'{places_id}\n')
+                    print(result_get.text)
+                    assert result_get.status_code == 200
+                    print('Проверка существующих локаций прошла успешно')
 
         print('Place ID обновлены!')
 
-        print('\nПроверка New_location пройдена!')
+    print('\nПроверка New_location пройдена!')
 
 
 location = New_location()
