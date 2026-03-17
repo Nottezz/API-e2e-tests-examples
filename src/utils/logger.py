@@ -1,9 +1,12 @@
 import datetime
 import os
+import pathlib
 
+ROOT_DIR = pathlib.Path(__file__).parent.parent.parent
+LOGS_DIR = ROOT_DIR / "logs"
 
 class Logger():
-    file_name = fr'D:\Study\api\api_course\project\logs/log_' + str(datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")) + '.log'
+    file_name = str(LOGS_DIR / f"{datetime.datetime.now():%Y-%m-%d_%H-%M-%S}.log")
 
     @classmethod
     def write_log_to_file(cls, data: str):
