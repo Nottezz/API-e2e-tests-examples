@@ -40,6 +40,10 @@ jobs:
       - name: Check Allure results
         run: ls -la
 
+      - name: Check Allure results
+        run: ls -la allure-results
+
+
       - name: Deploy Allure Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
