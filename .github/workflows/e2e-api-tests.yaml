@@ -14,9 +14,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # --- Checkout code ---
       - name: Checkout
         uses: actions/checkout@v6
 
+      # --- Setup Python & UV ---
       - name: Setup Python
         uses: actions/setup-python@v6
         with:
@@ -39,17 +41,19 @@ jobs:
           chmod +x ./allure/allure-2.27.0/bin/allure
           echo "$(pwd)/allure/allure-2.27.0/bin" >> $GITHUB_PATH
 
-      - name: Checkout gh-pages for history
-        uses: actions/checkout@v6
-        with:
-          repository: ${{ github.repository }}
-          ref: gh-pages
-          path: gh-pages
+      - name: Clone gh-pages branch
+        run: git clone --depth 1 --branch gh-pages https://github.com/${{ github.repository }}.git gh-pages
 
-      - name: Copy history from previous report
+      - name: Copy previous history
         run: |
           mkdir -p ./allure-results/history
-          cp -r gh-pages/pr-${{ github.event.pull_request.number }}/history/* ./allure-results/history/ || echo "No previous history"
+          PREV="gh-pages/pr-${{ github.event.pull_request.number }}/history"
+          if [ -d "$PREV" ]; then
+            cp -r $PREV/* ./allure-results/history/
+            echo "Copied previous history"
+          else
+            echo "No previous history for this PR"
+          fi
 
       - name: Generate Allure Report
         run: allure generate ./allure-results --clean -o ./allure-report
