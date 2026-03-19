@@ -47,7 +47,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./allure-report
-          destination_dir: pr-1
+          destination_dir: ''
           keep_files: true
           exclude_assets: ""
 
