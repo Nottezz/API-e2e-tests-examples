@@ -37,6 +37,9 @@ jobs:
           report-directory: ./allure-results
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Check Allure results
+        run: ls -la
+
       - name: Deploy Allure Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
