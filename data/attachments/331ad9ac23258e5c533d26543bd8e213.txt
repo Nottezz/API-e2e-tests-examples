@@ -1,5 +1,0 @@
-https://rahulshettyacademy.com/maps/api/place/get/json?key=qaclick123&place_id=c24027fa342f4aa54b7d2fdbbaeda3d0
-{"msg":"Get operation failed, looks like place_id  doesn't exists"}
-Успешно! Статус код - 404
-Все поля присутсвуют
-msg верен

@@ -1,1 +1,1 @@
-{"id":"92520f8850990bd69998f1c410df080b","fullName":"tests.test_google_maps_api.TestCreateLocation#test_delete_place","name":"Удаление локации (DELETE)","status":"passed","testResultsByEnv":{"default":"fb9794d6178e4b109fb9b2909b98e0b7"}}
+{"id":"92520f8850990bd69998f1c410df080b","fullName":"tests.test_google_maps_api.TestCreateLocation#test_delete_place","name":"Удаление локации (DELETE)","status":"passed","testResultsByEnv":{"default":"a84ba669028c7fb2f15ef2ec09285fa9"}}

@@ -1,5 +1,0 @@
-https://rahulshettyacademy.com/maps/api/place/get/json?key=qaclick123&place_id=f23f1446dc79dfce7783c45a1f9f3940
-{"location":{"latitude":"-38.383494","longitude":"33.427362"},"accuracy":"50","name":"Frontline house","phone_number":"(+91) 983 893 3937","address":"29, side layout, cohen 09","types":"shoe park,shop","website":"http:\/\/google.com","language":"French-IN"}
-Успешно! Статус код - 200
-Все поля присутсвуют
-address верен

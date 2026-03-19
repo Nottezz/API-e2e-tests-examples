@@ -1,5 +1,0 @@
-https://rahulshettyacademy.com/maps/api/place/add/json?key=qaclick123
-{"status":"OK","place_id":"eff13a69c8570f44b23bcc7e4e6dc8ba","scope":"APP","reference":"db682872f322631616cfa865ff660de0db682872f322631616cfa865ff660de0","id":"db682872f322631616cfa865ff660de0"}
-Успешно! Статус код - 200
-Все поля присутсвуют
-status верен

@@ -1,1 +1,1 @@
-{"id":"495201934913c65a430cad56708adb5d","fullName":"tests.test_google_maps_api.TestCreateLocation#test_get_deleted_place","name":"Проверка удаления локации (GET после DELETE)","status":"passed","testResultsByEnv":{"default":"d249bc0bf350188c57c3821350859fea"}}
+{"id":"495201934913c65a430cad56708adb5d","fullName":"tests.test_google_maps_api.TestCreateLocation#test_get_deleted_place","name":"Проверка удаления локации (GET после DELETE)","status":"passed","testResultsByEnv":{"default":"18e6d0f612a71128f700562583dbd336"}}

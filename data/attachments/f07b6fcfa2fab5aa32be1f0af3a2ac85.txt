@@ -1,5 +1,0 @@
-https://rahulshettyacademy.com/maps/api/place/delete/json?key=qaclick123
-{"status":"OK"}
-Успешно! Статус код - 200
-Все поля присутсвуют
-status верен
