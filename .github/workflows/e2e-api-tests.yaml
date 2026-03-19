@@ -31,9 +31,16 @@ jobs:
       - name: Run tests
         run: uv run pytest --alluredir ./allure-results
 
-      - name: Generate Allure Report
+      - name: Install Allure CLI
         run: |
-          docker run --rm -v $PWD:/app -w /app ghcr.io/allure-framework/allure:2.27.0 generate allure-results --clean -o allure-report
+          ALLURE_VERSION=2.27.0
+          wget https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}.zip
+          unzip allure-${ALLURE_VERSION}.zip -d ./allure
+          chmod +x ./allure/bin/allure
+          echo "$(pwd)/allure/bin" >> $GITHUB_PATH
+
+      - name: Generate Allure Report
+        run: allure generate ./allure-results --clean -o ./allure-report
 
       - name: Deploy Allure Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
