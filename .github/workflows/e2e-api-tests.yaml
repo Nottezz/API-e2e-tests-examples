@@ -29,12 +29,12 @@ jobs:
         run: uv sync --locked --all-extras
 
       - name: Run tests
-        run: uv run pytest --alluredir allure-results
+        run: uv run pytest --alluredir ./allure-results
 
       - name: Generate Allure Report
         uses: allure-framework/allure-action@v0
         with:
-          report-directory: "./"
+          report-directory: ./allure-results
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Deploy Allure Report to GitHub Pages
