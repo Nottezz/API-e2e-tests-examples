@@ -44,7 +44,8 @@ jobs:
           mkdir -p ./allure-results/history
           # Скачиваем gh-pages ветку временно
           git clone --depth=1 --branch gh-pages https://github.com/${{ github.repository }}.git temp-gh-pages
-          PREV_DIR="temp-gh-pages/pr-${{ github.event.pull_request.number - 1 }}/history"
+          PREV_PR=$(( ${{ github.event.pull_request.number }} - 1 ))
+          PREV_DIR="temp-gh-pages/pr-$PREV_PR/history"
           if [ -d "$PREV_DIR" ]; then
             cp -r $PREV_DIR/* ./allure-results/history/
             echo "Previous history copied"
