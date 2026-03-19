@@ -39,6 +39,18 @@ jobs:
           chmod +x ./allure/allure-2.27.0/bin/allure
           echo "$(pwd)/allure/allure-2.27.0/bin" >> $GITHUB_PATH
 
+      - name: Checkout gh-pages for history
+        uses: actions/checkout@v6
+        with:
+          repository: ${{ github.repository }}
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Copy history from previous report
+        run: |
+          mkdir -p ./allure-results/history
+          cp -r gh-pages/pr-${{ github.event.pull_request.number }}/history/* ./allure-results/history/ || echo "No previous history"
+
       - name: Generate Allure Report
         run: allure generate ./allure-results --clean -o ./allure-report
 
@@ -47,7 +59,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./allure-report
-          destination_dir: ''
+          destination_dir: ""
           keep_files: true
           exclude_assets: ""
 
