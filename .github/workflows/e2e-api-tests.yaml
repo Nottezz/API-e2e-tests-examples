@@ -25,6 +25,9 @@ jobs:
       - name: Setup UV
         uses: astral-sh/setup-uv@v7
 
+      - name: Clean old Allure results
+        run: rm -rf ./allure-results/*
+
       - name: Install dependencies
         run: uv sync --locked --all-extras
 
