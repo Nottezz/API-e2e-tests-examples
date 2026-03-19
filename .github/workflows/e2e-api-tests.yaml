@@ -1,0 +1,60 @@
+name: Tests with Allure Report per PR
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+  checks: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version-file: ".python-version"
+
+      - name: Setup UV
+        uses: astral-sh/setup-uv@v7
+
+      - name: Install dependencies
+        run: uv sync --locked --all-extras
+
+      - name: Run tests
+        run: uv run pytest --alluredir ./allure-results
+
+      - name: Install Allure CLI
+        run: |
+          ALLURE_VERSION=2.27.0
+          wget https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}.zip
+          unzip allure-${ALLURE_VERSION}.zip -d ./allure
+          chmod +x ./allure/allure-2.27.0/bin/allure
+          echo "$(pwd)/allure/allure-2.27.0/bin" >> $GITHUB_PATH
+
+      - name: Generate Allure Report
+        run: allure generate ./allure-results --clean -o ./allure-report
+
+      - name: Deploy Allure report
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./allure-report
+          destination_dir: ''
+          keep_files: true
+          exclude_assets: ""
+
+      - name: Comment PR with Allure Report link
+        uses: peter-evans/create-or-update-comment@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ✅ Allure report for this PR is available [here](https://${{ github.repository_owner }}.github.io/${{ github.repository }}/pr-${{ github.event.pull_request.number }}/)

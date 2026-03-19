@@ -1,7 +1,6 @@
-import json
 import allure
-from project.utils.api import Google_maps_api
-from project.utils.cheking import Checking
+from src.utils.api import Google_maps_api
+from src.utils.cheking import Checking
 
 """Создание, изменение и удаление новой локации"""
 

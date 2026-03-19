@@ -1,7 +1,7 @@
 import allure
 import requests
 
-from project.utils.logger import Logger
+from src.utils.logger import Logger
 
 """Список HTTP методов"""
 

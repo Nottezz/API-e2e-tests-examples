@@ -1,4 +1,4 @@
-from project.utils.http_methods import Http_methods
+from src.utils.http_methods import Http_methods
 
 """Методы для тестирования Google maps API"""
 
