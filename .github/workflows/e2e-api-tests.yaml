@@ -62,7 +62,7 @@ jobs:
 
       - name: Generate Allure 3 Report
         run: |
-          allure generate --config ./allurerc.js --history ./gh-pages --clean allure-results
+          allure generate --config ./allurerc.js allure-results
 
       - name: Deploy Allure report
         uses: peaceiris/actions-gh-pages@v4
