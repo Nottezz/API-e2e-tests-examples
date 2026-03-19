@@ -1,0 +1,5 @@
+https://rahulshettyacademy.com/maps/api/place/get/json?key=qaclick123&place_id=c24027fa342f4aa54b7d2fdbbaeda3d0
+{"location":{"latitude":"-38.383494","longitude":"33.427362"},"accuracy":"50","name":"Frontline house","phone_number":"(+91) 983 893 3937","address":"100 Lenina street, RU","types":"shoe park,shop","website":"http:\/\/google.com","language":"French-IN"}
+Успешно! Статус код - 200
+Все поля присутсвуют
+address верен

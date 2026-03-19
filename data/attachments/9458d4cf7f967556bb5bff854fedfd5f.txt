@@ -1,0 +1,5 @@
+https://rahulshettyacademy.com/maps/api/place/update/json?key=qaclick123
+{"msg":"Address successfully updated"}
+Успешно! Статус код - 200
+Все поля присутсвуют
+msg верен
