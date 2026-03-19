@@ -17,6 +17,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Get Allure history
+        uses: actions/checkout@v6
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
       - name: Setup Python
         uses: actions/setup-python@v6
         with:
@@ -35,6 +42,13 @@ jobs:
 
       - name: Install Allure 3 CLI
         run: npm install -g allure
+
+      - name: Restore Allure history
+        run: |
+          mkdir -p allure-report
+          if [ -d gh-pages/history ]; then
+            cp -r gh-pages/history allure-report/
+          fi
 
       - name: Generate Allure 3 Report with history
         run: npx allure run --config=./allurerc.js -- "uv run pytest"
