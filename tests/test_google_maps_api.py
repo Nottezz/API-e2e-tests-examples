@@ -3,7 +3,10 @@ from src.utils.api import Google_maps_api
 from src.utils.cheking import Checking
 
 @allure.epic('Google Maps API')
-@allure.feature('Create, Update, Delete Place')
+@allure.feature('Управление локациями')
+@allure.parent_suite("API Tests")
+@allure.suite("Google Maps")
+@allure.sub_suite("Create/Update/Delete Location")
 class TestCreateLocation:
 
     place_id = None
