@@ -36,8 +36,8 @@ jobs:
           ALLURE_VERSION=2.27.0
           wget https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}.zip
           unzip allure-${ALLURE_VERSION}.zip -d ./allure
-          chmod +x ./allure/bin/allure
-          echo "$(pwd)/allure/bin" >> $GITHUB_PATH
+          chmod +x ./allure/allure-2.27.0/bin/allure
+          echo "$(pwd)/allure/allure-2.27.0/bin" >> $GITHUB_PATH
 
       - name: Generate Allure Report
         run: allure generate ./allure-results --clean -o ./allure-report
