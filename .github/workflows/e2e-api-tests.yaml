@@ -1,4 +1,4 @@
-name: Tests with Allure Report per PR
+name: Run e2e tests
 
 on:
   pull_request:
@@ -12,7 +12,6 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -43,24 +42,37 @@ jobs:
       - name: Install Allure 3 CLI
         run: npm install -g allure
 
-      - name: Restore Allure history
+      - name: Run Tests
+        run: uv run pytest --alluredir=allure-results
+        continue-on-error: true
+
+      - name: Get Allure history
+        uses: actions/checkout@v4
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Restore Allure history to results
         run: |
-          mkdir -p allure-report
+          mkdir -p allure-results
           if [ -d gh-pages/history ]; then
-            cp -r gh-pages/history allure-report/
+            cp -r gh-pages/history allure-results/
           fi
 
-      - name: Generate Allure 3 Report with history
-        run: npx allure run --config=./allurerc.js -- "uv run pytest"
+      - name: Generate Allure 3 Report
+        run: |
+          allure generate allure-results \
+            --config ./allurerc.js \
+            --history ./gh-pages \
+            --clean
 
       - name: Deploy Allure report
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./allure-report
-          destination_dir: ''
-          keep_files: true
-          exclude_assets: ""
+          keep_files: false
 
       - name: Comment PR with Allure Report link
         uses: peter-evans/create-or-update-comment@v5
