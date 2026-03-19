@@ -37,21 +37,26 @@ jobs:
           node-version: 20
 
       - name: Install Allure 3 CLI
-        run: npm install -g allure
+        run: npm install -g @shelex/allure2-cli
 
       - name: Copy previous history if exists
         run: |
           mkdir -p ./allure-results/history
-          if [ -f ./allure-report/allure-history.jsonl ]; then
-            cp ./allure-report/allure-history.jsonl ./allure-results/history/
+          # Скачиваем gh-pages ветку временно
+          git clone --depth=1 --branch gh-pages https://github.com/${{ github.repository }}.git temp-gh-pages
+          PREV_DIR="temp-gh-pages/pr-${{ github.event.pull_request.number - 1 }}/history"
+          if [ -d "$PREV_DIR" ]; then
+            cp -r $PREV_DIR/* ./allure-results/history/
             echo "Previous history copied"
           else
             echo "No previous history found"
           fi
+          rm -rf temp-gh-pages
 
       - name: Generate Allure 3 Report with history
         run: |
-          npx allure generate ./allure-results --output=./allure-report
+          rm -rf ./allure-report
+          allure generate ./allure-results --output ./allure-report --clean
 
       - name: Deploy Allure report
         uses: peaceiris/actions-gh-pages@v4
