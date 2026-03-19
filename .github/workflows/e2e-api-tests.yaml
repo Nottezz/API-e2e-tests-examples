@@ -70,4 +70,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            ✅ Allure report for this PR is available [here](https://${{ github.repository_owner }}.github.io/${{ github.repository }}/pr-${{ github.event.pull_request.number }}/)
+            ✅ Allure report for this PR is available [here](https://{{ github.repository_owner }}.github.io/${{ github.repository }}/pr-${{ github.event.pull_request.number }}/)
