@@ -56,7 +56,7 @@ jobs:
           rm -rf temp-gh-pages
 
       - name: Generate Allure 3 Report with history
-        run: npx allure generate ./allure-results --clean -o ./allure-report
+        run: npx allure generate ./allure-results --output ./allure-report
 
       - name: Deploy Allure report
         uses: peaceiris/actions-gh-pages@v4
