@@ -31,16 +31,32 @@ jobs:
       - name: Run tests
         run: uv run pytest --alluredir ./allure-results
 
-      - name: Install Allure CLI
-        run: |
-          ALLURE_VERSION=2.27.0
-          wget https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}.zip
-          unzip allure-${ALLURE_VERSION}.zip -d ./allure
-          chmod +x ./allure/allure-2.27.0/bin/allure
-          echo "$(pwd)/allure/allure-2.27.0/bin" >> $GITHUB_PATH
+      - name: Setup Node.js for Allure 3
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
 
-      - name: Generate Allure Report
-        run: allure generate ./allure-results --clean -o ./allure-report
+      - name: Install Allure 3 CLI
+        run: npm install -g allure
+
+      - name: Copy previous history from last PR if exists
+        run: |
+          mkdir -p ./allure-results/history
+          # Скачиваем gh-pages ветку временно
+          git clone --depth=1 --branch gh-pages https://github.com/${{ github.repository }}.git temp-gh-pages
+          # Подтягиваем историю из предыдущего PR
+          LAST_PR_NUM=$(( ${{ github.event.pull_request.number }} - 1 ))
+          PREV_HISTORY_DIR="temp-gh-pages/pr-${LAST_PR_NUM}/history"
+          if [ -d "$PREV_HISTORY_DIR" ]; then
+            cp -r "$PREV_HISTORY_DIR"/* ./allure-results/history/
+            echo "Previous history copied from PR-$LAST_PR_NUM"
+          else
+            echo "No previous history found for PR-$LAST_PR_NUM"
+          fi
+          rm -rf temp-gh-pages
+
+      - name: Generate Allure 3 Report with history
+        run: npx allure generate ./allure-results --output ./allure-report
 
       - name: Deploy Allure report
         uses: peaceiris/actions-gh-pages@v4
@@ -57,4 +73,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            ✅ Allure report for this PR is available [here](https://${{ github.repository_owner }}.github.io/${{ github.repository }}/pr-${{ github.event.pull_request.number }}/)
+            ✅ Allure report for this PR is available [here](https://${{ github.repository_owner }}.github.io/${{ github.repository }}/)
