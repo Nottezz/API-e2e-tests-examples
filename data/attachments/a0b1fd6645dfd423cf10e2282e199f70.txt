@@ -1,0 +1,10 @@
+[1m============================= test session starts ==============================[0m
+platform linux -- Python 3.13.12, pytest-9.0.2, pluggy-1.6.0
+rootdir: /home/runner/work/API-e2e-tests-examples/API-e2e-tests-examples
+configfile: pyproject.toml
+plugins: allure-pytest-2.15.3
+collected 6 items
+
+tests/test_google_maps_api.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                     [100%][0m
+
+[32m============================== [32m[1m6 passed[0m[32m in 21.22s[0m[32m ==============================[0m
