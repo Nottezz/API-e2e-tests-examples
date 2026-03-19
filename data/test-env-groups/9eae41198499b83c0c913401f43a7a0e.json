@@ -1,1 +1,1 @@
-{"id":"9eae41198499b83c0c913401f43a7a0e","fullName":"tests.test_google_maps_api.TestCreateLocation#test_get_created_place","name":"Получение созданной локации (GET)","status":"passed","testResultsByEnv":{"default":"07f72a559fa7e0e001a63efb3b056f7b"}}
+{"id":"9eae41198499b83c0c913401f43a7a0e","fullName":"tests.test_google_maps_api.TestCreateLocation#test_get_created_place","name":"Получение созданной локации (GET)","status":"passed","testResultsByEnv":{"default":"6e097d5036cf4ab0d8b09b1adf845ead"}}

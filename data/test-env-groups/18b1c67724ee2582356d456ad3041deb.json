@@ -1,1 +1,1 @@
-{"id":"18b1c67724ee2582356d456ad3041deb","fullName":"tests.test_google_maps_api.TestCreateLocation#test_put_update_place","name":"Обновление адреса локации (PUT)","status":"passed","testResultsByEnv":{"default":"6659a1962c78a7ca74a53c9ea0cf1ed1"}}
+{"id":"18b1c67724ee2582356d456ad3041deb","fullName":"tests.test_google_maps_api.TestCreateLocation#test_put_update_place","name":"Обновление адреса локации (PUT)","status":"passed","testResultsByEnv":{"default":"52962504d41aae1ad15cfee7e677d054"}}
